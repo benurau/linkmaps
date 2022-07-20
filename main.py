@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import redirect ,render_template, request, session, jsonify
-from .backend.insert import insert_markers
-from .backend.fetch import fetch_markers
+from backend.insert import insert_markers
+from backend.fetch import fetch_markers
 
 
 app = Flask(__name__)
