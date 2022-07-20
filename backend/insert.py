@@ -1,7 +1,22 @@
-import db
+import os
+from flask_sqlalchemy import SQLAlchemy
+
+import os
+from flask import Flask
 
 
-def insert_pairs(timestamps: list, lats:list, lngs:list):
+app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
+
+uri = os.getenv("DATABASE_URL")
+if uri and uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
+db = SQLAlchemy(app)
+
+
+def insert_markers(timestamps: list, lats:list, lngs:list):
     for inx in range(len(timestamps)):
         timestamp = timestamps[inx]
         lat = lats[inx]
