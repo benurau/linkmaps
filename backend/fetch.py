@@ -1,4 +1,4 @@
-from db import db
+import db
 
 
 def fetch_pairs():

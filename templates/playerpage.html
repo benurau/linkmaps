@@ -8,6 +8,8 @@
    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
    crossorigin=""></script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <div id="player"></div>
@@ -69,8 +71,11 @@
       function onMapClick(e) {
         //alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
         var marker = L.marker(e.latlng).addTo(map);
-        timestamp_coord_pairs.push([e.latlng, timestamp]);
-        console.log(timestamp_coord_pairs);
+        $.post( "/fetch_markers_json", {
+            timestamp: player.getCurrentTime(),
+            lat:  e.lat, 
+            long: e.lng
+        });
        }
 
 

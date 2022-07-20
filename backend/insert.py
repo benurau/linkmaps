@@ -1,4 +1,4 @@
-from db import db
+import db
 
 
 def insert_pairs(timestamps: list, lats:list, lngs:list):
