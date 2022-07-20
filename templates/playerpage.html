@@ -14,7 +14,8 @@
     <div id="map" style="height: 390px; width: 640px; float:right"></div>
 
     <script>
-
+      var timestamp_coord_pairs = [];
+      var timestamp = 0;
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -37,11 +38,9 @@
         });
       }
 
-
       function onPlayerReady(event) {
         event.target.playVideo();
       }
-
 
       var done = false;
       function onPlayerStateChange(event) {
@@ -52,7 +51,7 @@
       }
       function stopVideo() {
         player.stopVideo();
-        console.log(player.getCurrentTime());
+        timestamp = player.getCurrentTime();
       }
     </script>
     <script>
@@ -68,8 +67,10 @@
       
 
       function onMapClick(e) {
-        alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
+        //alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
         var marker = L.marker(e.latlng).addTo(map);
+        timestamp_coord_pairs.push([e.latlng, timestamp]);
+        console.log(timestamp_coord_pairs);
        }
 
 
