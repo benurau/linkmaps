@@ -71,11 +71,18 @@
       function onMapClick(e) {
         //alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
         var marker = L.marker(e.latlng).addTo(map);
-        $.post( "/fetch_markers_json", {
-            timestamp: player.getCurrentTime(),
-            lat:  e.lat, 
-            long: e.lng
-        });
+        var coord = e.latlng; // no need for toString()
+        var lat = coord.lat;
+        var lng = coord.lng;
+        $.ajax({
+          url: "/submit_markers",
+          data:{
+          timestamp: player.getCurrentTime(),
+          lat: lat,
+          lng: lng
+          },
+          type: 'POST'
+        })
        }
 
 

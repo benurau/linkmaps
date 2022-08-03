@@ -1,3 +1,4 @@
+from sqlite3 import Timestamp
 from flask import Flask
 from flask import redirect ,render_template, request, session, jsonify
 from backend.insert import insert_markers
@@ -17,11 +18,13 @@ def submit_markers_json():
    json structure:
    d = {timestamps: [], lat: [], lng: [] ]}
    """
-   content = request.json
-   timestamps = content["timestamps"]
-   lats = content["lat"]
-   lngs = content["lng"]
-   insert_markers(timestamps, lats, lngs)
+   
+   timestamps = request.form["timestamp"]
+   lats = request.form["lat"]
+   longs = request.form["lng"]
+   #insert_markers(timestamps, lats, lngs)
+   print(timestamps, lats, longs)
+   return redirect("lolhentai.com")
 
 
 def fetch_markers_json():
