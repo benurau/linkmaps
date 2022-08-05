@@ -22,8 +22,8 @@ def submit_markers_json():
    timestamps = request.form["timestamp"]
    lats = request.form["lat"]
    longs = request.form["lng"]
-   #insert_markers(timestamps, lats, lngs)
-   print(timestamps, lats, longs)
+   insert_markers(timestamps, lats, longs)
+   # print(timestamps, lats, longs)
    return redirect("lolhentai.com")
 
 
