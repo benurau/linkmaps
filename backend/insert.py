@@ -16,11 +16,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db = SQLAlchemy(app)
 
 
-def insert_markers(timestamps: list, lats:list, lngs:list):
-    for inx in range(len(timestamps)):
-        timestamp = timestamps[inx]
-        lat = lats[inx]
-        lng = lngs[inx]
-        sql = "INSERT INTO marker (video_timestamp, lat, lng) VALUES (:video_timestamp, :lat, :lng)"
-        db.session.execute(sql, {"video_timestamp": timestamp, "lat": lat, "lng": lng})
+def insert_markers(timestamp: float, lat:float, lng:float):
+    sql = "INSERT INTO marker (video_timestamp, lat, lng) VALUES (:video_timestamp, :lat, :lng)"
+    db.session.execute(sql, {"video_timestamp": timestamp, "lat": lat, "lng": lng})
     db.session.commit()
