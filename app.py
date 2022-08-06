@@ -3,9 +3,17 @@ from flask import Flask
 from flask import redirect ,render_template, request, session, jsonify
 from backend.insert import insert_markers
 from backend.fetch import fetch_markers
-
+import os
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+uri = os.getenv("DATABASE_URL")
+if uri and uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
+db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
@@ -19,10 +27,15 @@ def submit_markers_json():
    d = {timestamps: [], lat: [], lng: [] ]}
    """
    
-   timestamps = request.form["timestamp"]
-   lats = request.form["lat"]
-   longs = request.form["lng"]
-   insert_markers(timestamps, lats, longs)
+   timestamp = request.form["timestamp"]
+   lat = request.form["lat"]
+   long = request.form["lng"]
+   #insert_markers(timestamps, lats, longs)
+
+   sql = "INSERT INTO marker (video_timestamp, lat, lng) VALUES (:video_timestamp, :lat, :lng)"
+   db.session.execute(sql, {"video_timestamp": timestamp, "lat": lat, "lng": long})
+   db.session.commit()
+
    #print(timestamps, lats, longs)
 
 
