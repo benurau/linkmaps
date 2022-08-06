@@ -12,6 +12,7 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
+    <button onclick="MapMarkers()">Click me</button>
     <div id="player"></div>
     <div id="map" style="height: 390px; width: 640px; float:right"></div>
 
@@ -83,6 +84,16 @@
           },
           type: 'POST'
         })
+       }
+
+       function MapMarkers(){
+        $.ajax({
+          url: "/get_markers",
+          data,
+          type: 'GET'
+        })
+        console.log(data);
+        //L.marker(data).addTo(map)
        }
 
 
