@@ -38,10 +38,15 @@ def submit_markers_json():
 
    #print(timestamps, lats, longs)
 
+def fm():
+   sql = "SELECT video_timestamp, lat, lng FROM marker"
+   result = db.session.execute(sql)
+   return result
 
 
+@app.route('/get_markers', methods=["GET"])
 def fetch_markers_json():
-   markers = fetch_markers()
+   markers = fm()
    timestamps, lats, lngs = [], [], []
    for marker in markers:
       timestamps.append(marker[0])
