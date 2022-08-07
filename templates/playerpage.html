@@ -109,12 +109,10 @@
         })
         console.log(req);
         var parsed = JSON.parse(req.responseText);
-        console.log(parsed);
-        console.log(lats)
-        console.log(lats["timestamps"])
 
-        for (let i = 0; i < lats.length; i++){
-          L.marker([lats[i], lngs[i]]).addTo(map);
+
+        for (let i = 0; i < parsed.length; i++){
+          L.marker([parsed[i], parsed[i]]).addTo(map);
         }
         //L.marker(data).addTo(map)
        }
