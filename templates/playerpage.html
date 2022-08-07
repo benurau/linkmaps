@@ -59,7 +59,7 @@
       }
     </script>
     <script>
-      var map = L.map('map').setView([51.505, -0.09], 13);
+      var map = L.map('map').setView([60.465381, 25.617772], 15);
 
       
 
@@ -79,7 +79,7 @@
         $.ajax({
           url: "/submit_markers",
           data:{
-          timestamp: player.getCurrentTime(),
+          timestamp: 64,
           lat: lat,
           lng: lng,
           link: '{{videoid}}',
@@ -97,6 +97,7 @@
           data: {"timestamps": timestamps,
           "lats": lats,
           "lngs": lngs,
+          "links": links,
           },
           type: 'GET',
           contentType: "application/json",
