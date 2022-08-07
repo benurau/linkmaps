@@ -117,9 +117,7 @@
         for (let i = 0; i < parsed.lats.length; i++){
           var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]);
         }
-
-        //L.marker(data).addTo(map)
-       }
+      }
        map.on('click', onMapClick);
 
        

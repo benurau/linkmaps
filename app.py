@@ -68,7 +68,7 @@ def fetch_markers_json():
       timestamps.append(marker[0])
       lats.append(marker[1])
       lngs.append(marker[2])
-      links.append(marker[3])
+      links.append(f"https://www.youtube.com/watch?v={marker[3]}")
 
    d = {"timestamps": timestamps,
         "lats": lats,
