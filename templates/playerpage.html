@@ -76,10 +76,13 @@
         var coord = e.latlng; // no need for toString()
         var lat = coord.lat;
         var lng = coord.lng;
+
+        //console.log(player.getCurrentTime());
+        var curTime = player.getCurrentTime()
         $.ajax({
           url: "/submit_markers",
           data:{
-          timestamp: 64,
+          timestamp: curTime,
           lat: lat,
           lng: lng,
           link: '{{videoid}}',
@@ -109,6 +112,10 @@
         console.log(parsed);
         console.log(lats)
         console.log(lats["timestamps"])
+
+        for (let i = 0; i < lats.length; i++){
+          L.marker([lats[i], lngs[i]]).addTo(map);
+        }
         //L.marker(data).addTo(map)
        }
        map.on('click', onMapClick);
