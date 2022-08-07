@@ -47,7 +47,7 @@ def submit_markers_json():
    lat = request.form["lat"]
    long = request.form["lng"]
    print(link, timestamp, lat, long)
-   sql = "INSERT INTO marker (video_timestamp, lat, lng) VALUES (:video_timestamp, :lat, :lng)"
+   sql = "INSERT INTO marker (video_timestamp, lat, lng, link) VALUES (:video_timestamp, :lat, :lng, :link)"
    db.session.execute(sql, {"video_timestamp": timestamp, "lat": lat, "lng": long, "link": link})
    db.session.commit()
 
