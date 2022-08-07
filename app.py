@@ -17,8 +17,24 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-   return render_template('playerpage.html')
+   return render_template('home.html')
 
+@app.route('/', methods=['POST', 'GET'])
+def home2():
+   print("before")
+   videoid = request.form["videoid"]
+   print(videoid)
+   return render_template('playerpage.html', videoid=videoid)
+
+
+"""
+@app.route('/playerpage', methods=['POST', 'GET'])
+def playerpage():
+   print("before")
+   videoid = request.form["videoid"]
+   print(videoid)
+   return render_template('playerpage.html', videoid=videoid)
+"""
 
 @app.route('/submit_markers', methods=["POST", "GET"])
 def submit_markers_json():
@@ -26,17 +42,15 @@ def submit_markers_json():
    json structure:
    d = {timestamps: [], lat: [], lng: [] ]}
    """
-   
+   link = request.form["link"]
    timestamp = request.form["timestamp"]
    lat = request.form["lat"]
    long = request.form["lng"]
-   #insert_markers(timestamps, lats, longs)
-
+   print(link, timestamp, lat, long)
    sql = "INSERT INTO marker (video_timestamp, lat, lng) VALUES (:video_timestamp, :lat, :lng)"
-   db.session.execute(sql, {"video_timestamp": timestamp, "lat": lat, "lng": long})
+   db.session.execute(sql, {"video_timestamp": timestamp, "lat": lat, "lng": long, "link": link})
    db.session.commit()
 
-   #print(timestamps, lats, longs)
 
 def fm():
    sql = "SELECT video_timestamp, lat, lng FROM marker"
@@ -47,14 +61,18 @@ def fm():
 @app.route('/get_markers', methods=["GET"])
 def fetch_markers_json():
    markers = fm()
-   timestamps, lats, lngs = [], [], []
+   timestamps, lats, lngs, links = [], [], [], []
+
    for marker in markers:
       timestamps.append(marker[0])
       lats.append(marker[1])
       lngs.append(marker[2])
+      links.append(marker[3])
+
    d = {"timestamps": timestamps,
         "lats": lats,
-        "lngs": lngs
+        "lngs": lngs,
+        "links": links
         }
    return jsonify(d)
 
