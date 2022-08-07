@@ -89,12 +89,24 @@
        }
 
        function MapMarkers(){
-        $.ajax({
+        var timestamps = 0;
+        var lats = 0;
+        var lngs = 0;
+        req = $.ajax({
           url: "/get_markers",
-          data: data,
-          type: 'GET'
+          data: {"timestamps": timestamps,
+          "lats": lats,
+          "lngs": lngs,
+          },
+          type: 'GET',
+          contentType: "application/json",
+          async: false
         })
-        console.log(data);
+        console.log(req);
+        var parsed = JSON.parse(req.responseText);
+        console.log(parsed);
+        console.log(lats)
+        console.log(lats["timestamps"])
         //L.marker(data).addTo(map)
        }
        map.on('click', onMapClick);
