@@ -110,9 +110,8 @@
         console.log(req);
         var parsed = JSON.parse(req.responseText);
 
-
         for (let i = 0; i < parsed.length; i++){
-          L.marker([parsed[i], parsed[i]]).addTo(map);
+          L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map);
         }
         //L.marker(data).addTo(map)
        }
