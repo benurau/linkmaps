@@ -89,9 +89,10 @@
        }
 
        function MapMarkers(){
-        var timestamps = 0;
-        var lats = 0;
-        var lngs = 0;
+        var timestamps = [];
+        var lats = [];
+        var lngs = [];
+        var links = [];
         req = $.ajax({
           url: "/get_markers",
           data: {"timestamps": timestamps,
