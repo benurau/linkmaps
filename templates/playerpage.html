@@ -110,10 +110,15 @@
         console.log(req);
         var parsed = JSON.parse(req.responseText);
 
+        var parsedLats = parsed.lats;
+        var parsedLngs = parsed.lngs;
+        var parsedLinks = parsed.links;
+        
         for (let i = 0; i < parsed.lats.length; i++){
-          console.log(parsed.lats[i]);
-          L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map);
+          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup("UMOM");
+          
         }
+
         //L.marker(data).addTo(map)
        }
        map.on('click', onMapClick);
