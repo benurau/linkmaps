@@ -16,7 +16,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db = SQLAlchemy(app)
 
 
-
 def fetch_markers():
     sql = "SELECT video_timestamp, lat, lng FROM marker"
     result = db.session.execute(sql)
