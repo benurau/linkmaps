@@ -53,7 +53,7 @@ def submit_markers_json():
 
 
 def fm():
-   sql = "SELECT video_timestamp, lat, lng FROM marker"
+   sql = "SELECT video_timestamp, lat, lng, links FROM marker"
    result = db.session.execute(sql)
    return result
 
@@ -64,6 +64,7 @@ def fetch_markers_json():
    timestamps, lats, lngs, links = [], [], [], []
 
    for marker in markers:
+      print(marker)
       timestamps.append(marker[0])
       lats.append(marker[1])
       lngs.append(marker[2])
