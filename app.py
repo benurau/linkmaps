@@ -53,7 +53,7 @@ def submit_markers_json():
 
 
 def fm():
-   sql = "SELECT video_timestamp, lat, lng, links FROM marker"
+   sql = "SELECT video_timestamp, lat, lng, link FROM marker"
    result = db.session.execute(sql)
    return result
 
