@@ -1,12 +1,111 @@
 <!DOCTYPE html>
 <html>
-    <form method="POST">
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
 
-        <label>VideoID: </label>
-        <input type="text" name="videoid">
-        <br><br>
+   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
 
-        <input type="submit">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <form action="">
+            <input type="text" id="link">
+            <input type="button" value="Open Video" onclick="changeVideo()">
+        </form>
+        
+        <div id="player"></div>
+        <div id="map" style="height: 900px; width: 800px; float:right;"></div>
 
-    </form>
+        <script>
+            var link = "jU0M9RP3sAc";
+            var timestamp_coord_pairs = [];
+            var timestamp = 0;
+            var tag = document.createElement('script');
+      
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      
+            var player;
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                height: '900',
+                width: '800',
+                videoId: 'jU0M9RP3sAc',
+                playerVars: {
+                  'playsinline': 1
+                },
+                events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+                }
+              });
+            }
+      
+            function onPlayerReady(event) {
+              event.target.playVideo();
+            }
+      
+            var done = false;
+            function onPlayerStateChange(event) {
+              if (event.data == YT.PlayerState.PLAYING && !done) {
+                setTimeout(stopVideo, 6000);         
+                done = true;
+              }
+            }
+            function stopVideo() {
+              player.stopVideo();
+              timestamp = player.getCurrentTime();
+            }
+
+            function changeVideo(){
+                link = document.getElementById("link").value
+                console.log(link);
+                player.loadVideoById(link, 0);
+            }
+          </script>
+
+
+
+        <script>
+            var map = L.map('map').setView([60.465381, 25.617772], 15);
+      
+            
+      
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+      
+            
+      
+            function onMapClick(e) {
+              //alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
+              var marker = L.marker(e.latlng).addTo(map);
+              var coord = e.latlng; // no need for toString()
+              var lat = coord.lat;
+              var lng = coord.lng;
+      
+              //console.log(player.getCurrentTime());
+              var curTime = player.getCurrentTime()
+              $.ajax({
+                url: "/submit_markers",
+                data:{
+                timestamp: curTime,
+                lat: lat,
+                lng: lng,
+                link: '{{videoid}}',
+                },
+                type: 'POST'
+              })       
+            }            
+            map.on('click', onMapClick);
+      
+             
+          </script>
+    </body>
 </html>
