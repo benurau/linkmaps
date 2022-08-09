@@ -17,13 +17,11 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-   return render_template('home.html')
+   return render_template('playerpage.html')
 
 @app.route('/', methods=['POST', 'GET'])
 def home2():
-   print("before")
    videoid = request.form["videoid"]
-   print(videoid)
    return render_template('playerpage.html', videoid=videoid)
 
 
