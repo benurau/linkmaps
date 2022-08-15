@@ -128,8 +128,12 @@
         var parsedLinks = parsed.links;
         
         for (let i = 0; i < parsed.lats.length; i++){
-          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]);
-        }
+          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]).on('click', onClick(parsed.links[i]));
+        }       
+      }
+
+      function onClick(e){
+        player.loadVideoById(e, 0);
       }
 
     </script>    
