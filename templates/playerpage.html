@@ -55,7 +55,7 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);         
+          setTimeout(stopVideo, 6000);
           done = true;
         }
       }
@@ -65,13 +65,13 @@
       }
     </script>
     <script>
-      var map = L.map('map').setView([60.465381, 25.617772], 15);  
+      var map = L.map('map').setView([60.465381, 25.617772], 15);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '© OpenStreetMap'
       }).addTo(map);
-                 
+
       function MapMarkers(){
         var timestamps = [];
         var lats = [];
@@ -95,21 +95,16 @@
         var parsedLats = parsed.lats;
         var parsedLngs = parsed.lngs;
         var parsedLinks = parsed.links;
-        
+
         for (let i = 0; i < parsed.lats.length; i++){
-          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).on('click', onClick(parsed.links[i]));
-        }       
+          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]).on('click', onClick(parsed.links[i]));
+        }
       }
 
       function onClick(e){
         player.loadVideoById(e, 0);
       }
 
-       
     </script>
-
-    
-
-    
   </body>
 </html>

@@ -1,6 +1,6 @@
 CREATE TABLE marker(
     id SERIAL PRIMARY KEY,
-    video_timestamp int,
+    video_timestamp float,
     lat decimal,
     lng decimal,
     link TEXT
