@@ -44,10 +44,6 @@
           }
         });
       }
-      
-      //console.log("LOL");
-      //console.log(player.videoId, "VIDEOIDSDSDSDSDSSDDSD");
-      //console.log("LOL");
 
       function onPlayerReady(event) {
         event.target.playVideo();
@@ -56,7 +52,7 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);         
+          setTimeout(stopVideo, 6000);
           done = true;
         }
       }
@@ -66,45 +62,14 @@
       }
     </script>
     <script>
-<<<<<<< HEAD
-
       var map = L.map('map').setView([60.465381, 25.617772], 15);
-=======
-      var map = L.map('map').setView([60.465381, 25.617772], 15);  
->>>>>>> fbb02cd403831f731bc5bc3409500c70e2908180
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '© OpenStreetMap'
       }).addTo(map);
-      
-<<<<<<< HEAD
 
-      function onMapClick(e) {
-        //alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
-        var marker = L.marker(e.latlng).addTo(map);
-        var coord = e.latlng; // no need for toString()
-        var lat = coord.lat;
-        var lng = coord.lng;
-
-        var curTime = player.getCurrentTime()
-        $.ajax({
-          url: "/submit_markers",
-          data:{
-          timestamp: curTime,
-          lat: lat,
-          lng: lng,
-          link: '{{videoid}}',
-          },
-          type: 'POST'
-        })       
-      }
-
-       map.on('click', onMapClick);
-       function MapMarkers(){
-=======
       function MapMarkers(){
->>>>>>> fbb02cd403831f731bc5bc3409500c70e2908180
         var timestamps = [];
         var lats = [];
         var lngs = [];
@@ -126,16 +91,16 @@
         var parsedLats = parsed.lats;
         var parsedLngs = parsed.lngs;
         var parsedLinks = parsed.links;
-        
+
         for (let i = 0; i < parsed.lats.length; i++){
           var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]).on('click', onClick(parsed.links[i]));
-        }       
+        }
       }
 
       function onClick(e){
         player.loadVideoById(e, 0);
       }
 
-    </script>    
+    </script>
   </body>
 </html>
