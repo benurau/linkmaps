@@ -15,14 +15,13 @@ if uri and uri.startswith("postgres://"):
 app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db = SQLAlchemy(app)
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def home():
    return render_template('playerpage.html')
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/add_marker', methods=['POST', 'GET'])
 def home2():
-   videoid = request.form["videoid"]
-   return render_template('playerpage.html', videoid=videoid)
+   return render_template('AddMarker.html')
 
 
 """

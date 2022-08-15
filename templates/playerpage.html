@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+
+   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body onload="MapMarkers()" style="height: 100%; width: 100%;">
     
     <div id="player"></div>
     <div id="map" style="height: 900px; width: 800px; float:right;"></div>
-    <button> Add LinkMarker</button>
+
+    <form action="/add_marker" method="post">
+      <button name="forwardBtn" type="submit">Add Marker</button>
+    </form>
 
     <script>
       var timestamp_coord_pairs = [];
@@ -23,7 +34,7 @@
         player = new YT.Player('player', {
           height: '900',
           width: '800',
-          videoId: '{{videoid}}',
+          videoId: 'jU0M9RP3sAc',
           playerVars: {
             'playsinline': 1
           },
@@ -55,15 +66,19 @@
       }
     </script>
     <script>
+<<<<<<< HEAD
 
       var map = L.map('map').setView([60.465381, 25.617772], 15);
+=======
+      var map = L.map('map').setView([60.465381, 25.617772], 15);  
+>>>>>>> fbb02cd403831f731bc5bc3409500c70e2908180
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '© OpenStreetMap'
       }).addTo(map);
-
       
+<<<<<<< HEAD
 
       function onMapClick(e) {
         //alert("You clicked the map at " + e.latlng + "Time on video" + player.getCurrentTime());
@@ -87,6 +102,9 @@
 
        map.on('click', onMapClick);
        function MapMarkers(){
+=======
+      function MapMarkers(){
+>>>>>>> fbb02cd403831f731bc5bc3409500c70e2908180
         var timestamps = [];
         var lats = [];
         var lngs = [];
@@ -113,7 +131,6 @@
           var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]);
         }
       }
-      map.on('click', onMapClick);
 
     </script>    
   </body>
