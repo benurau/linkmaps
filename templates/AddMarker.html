@@ -10,6 +10,7 @@
    crossorigin=""></script>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="help.css"/>
     </head>
     <body>
         <form action="">
@@ -65,8 +66,21 @@
               timestamp = player.getCurrentTime();
             }
 
+            function getUrl(link){
+              var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+              var match = link.match(regExp);
+              if (match && match[2].length == 11) {
+                return match[2];
+              } else {
+                alert("invalid link")
+              }
+            }
+
+
+
+
             function changeVideo(){
-                link = document.getElementById("link").value
+                link = getUrl(document.getElementById("link").value)
                 console.log(link);
                 player.loadVideoById(link, 0);
             }

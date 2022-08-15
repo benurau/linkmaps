@@ -10,10 +10,13 @@
    crossorigin=""></script>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+   <link rel="stylesheet" href="/stylesheet.css"/>
+   
   </head>
-  <body onload="MapMarkers()" style="height: 100%; width: 100%;">
+  <body onload="MapMarkers()">
     
-    <div id="player"></div>
+    <div id="player" style="float:left"></div>
     <div id="map" style="height: 900px; width: 800px; float:right;"></div>
 
     <form action="/add_marker" method="post">
@@ -68,7 +71,7 @@
           maxZoom: 19,
           attribution: '© OpenStreetMap'
       }).addTo(map);
-      
+                 
       function MapMarkers(){
         var timestamps = [];
         var lats = [];
@@ -85,6 +88,7 @@
           contentType: "application/json",
           async: false
         })
+
         console.log(req);
         var parsed = JSON.parse(req.responseText);
 
@@ -93,7 +97,7 @@
         var parsedLinks = parsed.links;
         
         for (let i = 0; i < parsed.lats.length; i++){
-          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).bindPopup(parsed.links[i]).on('click', onClick(parsed.links[i]));
+          var marker = L.marker([parsed.lats[i], parsed.lngs[i]]).addTo(map).on('click', onClick(parsed.links[i]));
         }       
       }
 
